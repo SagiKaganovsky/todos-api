@@ -8,6 +8,7 @@ import { ToDo, ToDoDocument } from './schemas/todo.schema';
 @Injectable()
 export class ToDosService {
 
+
     constructor(
         @InjectModel(ToDo.name) private readonly todoModel: Model<ToDoDocument>,
     ) { }
@@ -27,10 +28,24 @@ export class ToDosService {
     }
 
     async delete(deleteToDoDto: CreateToDoDto): Promise<string> {
-        const result =  await this.todoModel.remove({ id: deleteToDoDto.id }).exec();
-        if(result.deletedCount === 1){
+        const { deletedCount, ok } = await this.todoModel.remove(
+            { id: deleteToDoDto.id }).exec();
+            
+        if (deletedCount === 1 && ok === 1) {
             return deleteToDoDto.id;
         }
-        return '';
+        return null;
+    }
+
+    async updateDone(updateToDoDto: CreateToDoDto): Promise<any> {
+
+        const { nModified, ok } = await this.todoModel.updateOne(
+            { id: updateToDoDto.id },
+            { done: updateToDoDto.done }).exec();
+
+        if (nModified === 1 && ok === 1) {
+            return updateToDoDto.id;
+        }
+        return null;
     }
 }
