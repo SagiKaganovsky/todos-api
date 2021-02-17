@@ -41,7 +41,7 @@ export class ToDosService {
 
         const { nModified, ok } = await this.todoModel.updateOne(
             { id: updateToDoDto.id },
-            { done: updateToDoDto.done }).exec();
+            { done: updateToDoDto.done, modifiedDate: new Date() }).exec();
 
         if (nModified === 1 && ok === 1) {
             return updateToDoDto.id;
