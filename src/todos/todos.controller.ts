@@ -16,4 +16,8 @@ export class ToDosController {
   async findAll(): Promise<ToDo[]> {
     return this.todosService.findAll();
   }
+  @Post('delete')
+  async delete(@Body() createToDoDto: CreateToDoDto): Promise<string> {
+    return await this.todosService.delete(createToDoDto);
+  }
 }
