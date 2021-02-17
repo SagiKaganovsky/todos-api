@@ -8,8 +8,8 @@ export class ToDosController {
   constructor(private readonly todosService: ToDosService) { }
 
   @Post()
-  async create(@Body() createToDoDto: CreateToDoDto) {
-    await this.todosService.create(createToDoDto);
+  async create(@Body() createToDoDto: CreateToDoDto): Promise<ToDo> {
+    return await this.todosService.create(createToDoDto);
   }
 
   @Get()

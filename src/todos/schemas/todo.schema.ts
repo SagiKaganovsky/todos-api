@@ -6,6 +6,9 @@ export type ToDoDocument = ToDo & Document;
 @Schema()
 export class ToDo {
   @Prop()
+  id: string;
+
+  @Prop()
   title: string;
 
   @Prop()

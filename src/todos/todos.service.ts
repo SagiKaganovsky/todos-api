@@ -10,9 +10,13 @@ export class ToDosService {
         @InjectModel(ToDo.name) private readonly todoModel: Model<ToDoDocument>,
     ) { }
 
-    async create(createCatDto: CreateToDoDto): Promise<ToDo> {
-        const createdCat = new this.todoModel(createCatDto);
-        return createdCat.save();
+    async create(createToDoDto: CreateToDoDto): Promise<ToDo> {
+        const createdToDo = new this.todoModel();
+        createdToDo.title = createToDoDto.title;
+        createdToDo.done = createdToDo.done;
+        createdToDo.modifiedDate = new Date();
+        createdToDo.createdDate = new Date();
+        return createdToDo.save();
     }
 
     async findAll(): Promise<ToDo[]> {
