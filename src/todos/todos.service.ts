@@ -12,6 +12,7 @@ export class ToDosService {
 
     async create(createToDoDto: CreateToDoDto): Promise<ToDo> {
         const createdToDo = new this.todoModel();
+        createdToDo.id = createToDoDto.id;
         createdToDo.title = createToDoDto.title;
         createdToDo.done = createdToDo.done;
         createdToDo.modifiedDate = new Date();
