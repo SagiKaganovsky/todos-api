@@ -22,8 +22,14 @@ export class ToDosController {
     return await this.todosService.delete(createToDoDto);
   }
 
+  @Post('update')
+  async update(@Body() createToDoDto: CreateToDoDto): Promise<string> {
+    return await this.todosService.updateTitle(createToDoDto);
+  }
+
   @Post('toggleDone')
   async toggleDone(@Body() createToDoDto: CreateToDoDto): Promise<string> {
     return await this.todosService.updateDone(createToDoDto);
   }
+
 }

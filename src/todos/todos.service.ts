@@ -28,7 +28,7 @@ export class ToDosService {
     }
 
     async delete(deleteToDoDto: CreateToDoDto): Promise<string> {
-        const { deletedCount, ok } = await this.todoModel.remove(
+        const { deletedCount, ok } = await this.todoModel.deleteOne(
             { id: deleteToDoDto.id }).exec();
             
         if (deletedCount === 1 && ok === 1) {
@@ -42,6 +42,18 @@ export class ToDosService {
         const { nModified, ok } = await this.todoModel.updateOne(
             { id: updateToDoDto.id },
             { done: updateToDoDto.done, modifiedDate: new Date() }).exec();
+
+        if (nModified === 1 && ok === 1) {
+            return updateToDoDto.id;
+        }
+        return null;
+    }
+    
+    async updateTitle(updateToDoDto: CreateToDoDto): Promise<any> {
+
+        const { nModified, ok } = await this.todoModel.updateOne(
+            { id: updateToDoDto.id },
+            { title: updateToDoDto.title, modifiedDate: new Date() }).exec();
 
         if (nModified === 1 && ok === 1) {
             return updateToDoDto.id;
